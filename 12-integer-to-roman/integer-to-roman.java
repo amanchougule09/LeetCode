@@ -3,35 +3,17 @@ class Solution {
 
         StringBuilder roman=new StringBuilder();
 
-        TreeMap<Integer,String> stored=new TreeMap<>(Collections.reverseOrder());
-        stored.put(1000, "M");
-        stored.put(900, "CM"); 
-        stored.put(500, "D");
-        stored.put(400, "CD"); 
-        stored.put(100, "C");
-        stored.put(90, "XC");   
-        stored.put(50, "L");
-        stored.put(40, "XL"); 
-        stored.put(10, "X");
-        stored.put(9, "IX");    
-        stored.put(5, "V");
-        stored.put(4, "IV");    
-        stored.put(1, "I");
+        int[] values = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        String[] symbols = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
 
-        for(Map.Entry<Integer,String> entry : stored.entrySet()){
-
+        for(int i=0; i<values.length; i++){
             if(num == 0){
                 break;
             }
-
-            int count = num / entry.getKey();
-
-            for(int i=0; i<count; i++){
-                roman.append(entry.getValue());
+            while(num >= values[i]){
+                roman.append(symbols[i]);
+                num -= values[i];
             }
-
-            num %= entry.getKey();
-
         }
         return roman.toString();
     }
