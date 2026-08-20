@@ -1,18 +1,20 @@
 class Solution {
     public boolean canConstruct(String ransomNote, String magazine) {
-        HashMap<Character, Integer> map=new HashMap<>();
 
-        for(int i=0; i<magazine.length();i++){
-            map.put(magazine.charAt(i), map.getOrDefault(magazine.charAt(i),0) + 1 );
+        if(ransomNote.length() > magazine.length()) return false;
+
+        int[] storage = new int[26];
+ 
+        for(char i : magazine.toCharArray()){
+            storage[i-'a']++;
         }
 
-        for(int i=0; i<ransomNote.length(); i++){
+        for(char i : ransomNote.toCharArray()){
 
-            char ch=ransomNote.charAt(i);
-            if(!map.containsKey(ch) || map.get(ch) == 0){
-                return false;
-            }
-            map.put(ch, map.get(ch)-1);
+            if(storage[i-'a'] == 0) return false;
+
+            storage[i-'a']--;
+
         }
         return true;
     }
